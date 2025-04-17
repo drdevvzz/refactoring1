@@ -79,6 +79,10 @@ def draw_hare():
 
 
 def main():
+   #Основная функция приложения
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("заяц")
     clock = pygame.time.Clock()
 
     while True:
@@ -88,9 +92,9 @@ def main():
                 sys.exit()
 
         screen.fill(WHITE)
-        draw_hare()
+        draw_hare(screen)
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(FPS)
 
 
 if __name__ == "__main__":
