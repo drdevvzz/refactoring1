@@ -45,13 +45,14 @@ def draw_leg(x, y, left=True):
         pygame.draw.ellipse(screen, GRAY, (x - 5, y - 15, 30, 40))
 
 
-def draw_face(x, y):
-    
-    pygame.draw.circle(screen, WHITE, (x - 20, y - 10), 10)
-    pygame.draw.circle(screen, WHITE, (x + 20, y - 10), 10)
-    pygame.draw.circle(screen, BLACK, (x - 20, y - 10), 5)
-    pygame.draw.circle(screen, BLACK, (x + 20, y - 10), 5)
+def draw_face(screen, x, y):
+    """Рисует лицо зайца (глаза и нос)"""
+    # Глаза
+    for offset in (-20, 20):
+        pygame.draw.circle(screen, WHITE, (x + offset, y - 10), 10)
+        pygame.draw.circle(screen, BLACK, (x + offset, y - 10), 5)
 
+    # Нос
     pygame.draw.circle(screen, PINK, (x, y + 10), 8)
     pygame.draw.circle(screen, BLACK, (x, y + 10), 3)
 
