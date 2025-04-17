@@ -1,15 +1,10 @@
 import pygame
 import sys
 
+SCREEN_WIDTH, SCREEN_HEIGHT = 600, 500
+FPS = 60
 
-pygame.init()
-
-
-width, height = 600, 500
-screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Простой заяц")
-
-
+# Цвета
 WHITE = (255, 255, 255)
 GRAY = (180, 180, 180)
 PINK = (255, 180, 180)
