@@ -10,16 +10,31 @@ GRAY = (180, 180, 180)
 PINK = (255, 180, 180)
 BLACK = (0, 0, 0)
 
+def draw_hare(screen):
+    body_x, body_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 40
+    head_x, head_y = body_x, body_y - 50
+
+    # Тело
+    pygame.draw.ellipse(screen, GRAY, (body_x - 120, body_y - 60, 200, 120))
+
+    # Голова
+    pygame.draw.circle(screen, GRAY, (head_x, head_y), 50)
+
+    # Уши
+    draw_ear(screen, head_x - 40, head_y - 40, is_left=True)
+    draw_ear(screen, head_x + 40, head_y - 40, is_left=False)
+
+    # Лапы
+    pygame.draw.ellipse(screen, GRAY, (body_x - 85, body_y + 25, 30, 40))
+    pygame.draw.ellipse(screen, GRAY, (body_x + 55, body_y + 25, 30, 40))
+
+    # Лицо
+    draw_face(screen, head_x, head_y)
+
 
 def draw_body(x, y):
 
     pygame.draw.ellipse(screen, GRAY, (x - 120, y - 60, 200, 120))
-
-
-def draw_head(x, y):
-
-    pygame.draw.circle(screen, GRAY, (x, y), 50)
-
 
 def draw_ear(screen, x, y, is_left=True):
     offset = -1 if is_left else 1
@@ -36,14 +51,6 @@ def draw_ear(screen, x, y, is_left=True):
         (x + offset * 12, y - 85)
     ]
     pygame.draw.polygon(screen, PINK, inner_points)
-
-def draw_leg(x, y, left=True):
-
-    if left:
-        pygame.draw.ellipse(screen, GRAY, (x - 25, y - 15, 30, 40))
-    else:
-        pygame.draw.ellipse(screen, GRAY, (x - 5, y - 15, 30, 40))
-
 
 def draw_face(screen, x, y):
     """Рисует лицо зайца (глаза и нос)"""
