@@ -21,18 +21,21 @@ def draw_head(x, y):
     pygame.draw.circle(screen, GRAY, (x, y), 50)
 
 
-def draw_ear(x, y, left=True):
-
-    if left:
-        points = [(x, y), (x - 30, y - 80), (x - 15, y - 100)]
-    else:
-        points = [(x, y), (x + 30, y - 80), (x + 15, y - 100)]
+def draw_ear(screen, x, y, is_left=True):
+    offset = -1 if is_left else 1
+    points = [
+        (x, y),
+        (x + offset * 30, y - 80),
+        (x + offset * 15, y - 100)
+    ]
     pygame.draw.polygon(screen, GRAY, points)
 
-    pygame.draw.polygon(screen, PINK, [(points[0][0], points[0][1] + 5),
-                                       (points[1][0] + (5 if left else -5), points[1][1] + 20),
-                                       (points[2][0] + (3 if left else -3), points[2][1] + 15)])
-
+    inner_points = [
+        (x, y + 5),
+        (x + offset * 25, y - 60),
+        (x + offset * 12, y - 85)
+    ]
+    pygame.draw.polygon(screen, PINK, inner_points)
 
 def draw_leg(x, y, left=True):
 
