@@ -1,69 +1,41 @@
-import pygame
+import pygame as pg
+import math as m
 
-pygame.init()
+pg.init(); S=pg.display.set_mode((800,800)); pg.display.set_caption("Зайчик")
 
-screen = pygame.display.set_mode((800, 800))
-pygame.display.set_caption("Зайчик")
+C1,C2,C3,C4,C5,C6=(210,180,140),(240,220,180),(190,160,120),(255,245,225),(255,240,230),(0,0,0); C7=(230,230,235)
 
+def e(s,p,l,a):
+    E=pg.Surface((20,l),pg.SRCALPHA); pg.draw.ellipse(E,C1,(0,0,20,l)); pg.draw.ellipse(E,C5,(5,5,10,l-10))
+    s.blit(pg.transform.rotate(E,a),pg.transform.rotate(E,a).get_rect(center=p))
 
-SAND_KING = (210, 180, 140)
-LIGHT_SAND_KING = (240, 220, 180)
-PAWS = (190, 160, 120)
-TAIL = (255, 245, 225)
-PINK = (255, 240, 230)
-BLACK = (0, 0, 0)
-BACKGROUND = (230, 230, 235)
+def h(s,x,y):
+    pg.draw.ellipse(s,C1,(x,y,250,180)); pg.draw.ellipse(s,C1,(x+50,y-50,120,100)); pg.draw.ellipse(s,C2,(x+70,y-30,70,50))
 
-def draw_ear(surface, start_pos, length, angle):
-    ear_surface = pygame.Surface((20, length), pygame.SRCALPHA)
-    pygame.draw.ellipse(ear_surface, SAND_KING, (0, 0, 20, length))
-    pygame.draw.ellipse(ear_surface, PINK, (5, 5, 10, length - 10))
-    rotated = pygame.transform.rotate(ear_surface, angle)
-    surface.blit(rotated, rotated.get_rect(center=start_pos))
+def ey(s,x,y):
+    pg.draw.circle(s,C6,(x+90,y+10),5); pg.draw.circle(s,C6,(x+130,y+10),5)
 
-def draw_head(surface, x, y):
-    pygame.draw.ellipse(surface, SAND_KING, (x, y, 250, 180))
-    pygame.draw.ellipse(surface, SAND_KING, (x+50, y-50, 120, 100))
-    pygame.draw.ellipse(surface, LIGHT_SAND_KING, (x+70, y-40, 70, 50))
+def n(s,x,y):
+    pg.draw.circle(s,C6,(x+110,y+30),4)
 
-def draw_eyes(surface, x, y):
-    pygame.draw.circle(surface, BLACK, (x+90, y), 5)
-    pygame.draw.circle(surface, BLACK, (x+130, y), 5)
+def w(s,x,y):
+    for i in range(-10,11,10):
+        pg.draw.line(s,C6,(x+110,y+30),(x+80,y+20+i),1); pg.draw.line(s,C6,(x+110,y+30),(x+140,y+20+i),1)
 
-def draw_nose(surface, x, y):
-    pygame.draw.circle(surface, BLACK, (x+110, y+20), 4)
+def p(s,x,y):
+    pg.draw.circle(s,C3,(x+30,y+150),30); pg.draw.circle(s,C3,(x+170,y+150),30); pg.draw.circle(s,C3,(x-10,y+80),35); pg.draw.circle(s,C3,(x+210,y+80),35)
 
-def draw_whiskers(surface, x, y):
-    for i in range(-10, 11, 10):
-        pygame.draw.line(surface, BLACK, (x+110, y+20), (x+80, y+10+i), 1)
-        pygame.draw.line(surface, BLACK, (x+110, y+20), (x+140, y+10+i), 1)
+def t(s,x,y):
+    pg.draw.circle(s,C4,(x-20,y+70),25)
 
-def draw_paws(surface, x, y):
-    pygame.draw.circle(surface, PAWS, (x+30, y+150), 30)
-    pygame.draw.circle(surface, PAWS, (x+170, y+150), 30)
-    pygame.draw.circle(surface, PAWS, (x-10, y+80), 35)
-    pygame.draw.circle(surface, PAWS, (x+210, y+80), 35)
+def d(s,x,y):
+    h(s,x,y); ey(s,x,y); n(s,x,y); w(s,x,y); e(s,(x+80,y-70),140,-10); e(s,(x+140,y-70),140,10); p(s,x,y); t(s,x,y)
 
-def draw_hare(surface, x, y):
-    draw_head(surface, x, y)
-    draw_eyes(surface, x, y-20)
-    draw_nose(surface, x, y-20)
-    draw_whiskers(surface, x, y-20)
-    draw_ear(surface, (x+80, y-70), 140, -10)
-    draw_ear(surface, (x+140, y-70), 140, 10)
-    draw_paws(surface, x, y)
+r=True; cl=pg.time.Clock()
 
-running = True
-clock = pygame.time.Clock()
+while r:
+    for ev in pg.event.get():
+        if ev.type==pg.QUIT: r=False
+    S.fill(C7); d(S,300,300); pg.display.flip(); cl.tick(30)
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    screen.fill(BACKGROUND)
-    draw_hare(screen, 300, 300)
-    pygame.display.flip()
-    clock.tick(30)
-
-pygame.quit()
+pg.quit()
